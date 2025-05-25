@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lembar Kerja Limit \(x \to 0\)</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fff8f0;
+      color: #333;
+      padding: 20px;
+      text-align: left;
+    }
+    h1 {
+      background-color: #ff9f43;
+      color: white;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    button {
+      background-color: #ffa726;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+    .soal {
+      background-color: #ffe0b2;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      text-align: left;
+    }
+    textarea {
+      width: 95%;
+      min-height: 80px;
+      border-radius: 8px;
+      border: 1.5px solid #ffa726;
+      padding: 10px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-size: 14px;
+      resize: vertical;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    #hasil {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #dcedc8;
+      border-radius: 15px;
+      font-size: 16px;
+      text-align: left;
+    }
+    #hasil h3 {
+      color: #33691e;
+    }
+    #hasil li {
+      margin-bottom: 15px;
+      background: #f0f4c3;
+      padding: 10px 15px;
+      border-radius: 10px;
+      line-height: 1.6;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      text-align: left;
+    }
+    #hasil strong {
+      display: block;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .math-pembahasan {
+      background-color: #fffde7;
+      padding: 10px;
+      border-radius: 10px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: left;
+    }
+    /* Perbesar penulisan matematika */
+    mjx-container[jax="CHTML"] {
+      font-size: 150% !important;
+    }
+    @media print {
+      body {
+        background-color: white !important;
+        color: black !important;
+        padding: 0;
+      }
+      button, input {
+        display: none;
+      }
+      .soal {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 20px;
+      }
+      #hasil {
+        page-break-before: always;
+      }
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+</head>
+<body>
+  <h1>Lembar Kerja Limit \(x \to 0\)</h1>
+
+  <label>Jumlah Soal: <input type="number" id="jumlah" value="5" min="1" max="20"></label>
+  <button onclick="generateSoal()">Buat Soal</button>
+  <button onclick="window.print()">Cetak</button>
+  <button onclick="selesai()">Tampilkan Kunci Jawaban</button>
+  <button onclick="location.reload()">Mulai Ulang</button>
+
+  <div id="daftar-soal"></div>
+  <div id="hasil"></div>
+
+  <script>
+    const bentukSoal = [
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{\\sin(${k === 1 ? '' : k}x)}{x}$.`,
+      k => `Tentukan nilai  $\\lim_{x \\to 0} \\frac{\\tan(${k === 1 ? '' : k}x)}{x}$.`,
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{1 - \\cos(${k === 1 ? '' : k}x)}{x^2}$.`,
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{e^{${k === 1 ? '' : k}x} - 1}{x}$.`,
+      k => `Tentukan nilai  $\\lim_{x \\to 0} \\frac{\\ln(1 + ${k === 1 ? '' : k}x)}{x}$.`
+    ];
+
+    const kunciJawaban = [
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$.
+2. Karena bentuk: $\\frac{\\sin(${k}x)}{x} = ${k} \\cdot \\frac{\\sin(${k}x)}{${k}x}$.
+3. Maka hasil: $= ${k}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{\\tan x}{x} = 1$.
+2. Karena bentuk: $\\frac{\\tan(${k}x)}{x} = ${k} \\cdot \\frac{\\tan(${k}x)}{${k}x}$.
+3. Maka hasil: $= ${k}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}$.
+2. Karena bentuk: $\\frac{1 - \\cos(${k}x)}{x^2} = ${k}^2 \\cdot \\frac{1 - \\cos(${k}x)}{(${k}x)^2}$.
+3. Maka hasil: $= ${(k * k) / 2}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1$.
+2. Bentuk: $\\frac{e^{${k}x} - 1}{x} = ${k} \\cdot \\frac{e^{${k}x} - 1}{${k}x}$.
+3. Maka hasil: $= ${k}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x} = 1$.
+2. Bentuk: $\\frac{\\ln(1 + ${k}x)}{x} = ${k} \\cdot \\frac{\\ln(1 + ${k}x)}{${k}x}$.
+3. Maka hasil: $= ${k}$.`
+    ];
+
+    let soalData = [];
+
+    function getRandomCoefficient() {
+      const angka = [1, 2, 3, 4, 5];
+      return angka[Math.floor(Math.random() * angka.length)];
+    }
+
+    function generateSoal() {
+      const jumlah = parseInt(document.getElementById("jumlah").value);
+      const soalContainer = document.getElementById("daftar-soal");
+      soalContainer.innerHTML = "";
+      soalData = [];
+      const usedSoal = new Set();
+
+      for (let i = 0; i < jumlah; i++) {
+        let index, koef, kunci;
+        let attempt = 0;
+        do {
+          index = Math.floor(Math.random() * bentukSoal.length);
+          koef = getRandomCoefficient();
+          kunci = `${index}-${koef}`;
+          attempt++;
+        } while (usedSoal.has(kunci) && attempt < 20);
+        usedSoal.add(kunci);
+        soalData.push({ index, koef });
+
+        const soalHTML = `
+          <div class="soal">
+            <strong>Soal ${i + 1}:</strong><br>
+            <span>${bentukSoal[index](koef)}</span>
+            <textarea></textarea>
+          </div>`;
+        soalContainer.innerHTML += soalHTML;
+      }
+
+      if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    function selesai() {
+      let hasilHTML = "<h3>Hasil dan Pembahasan:</h3><ol>";
+
+      soalData.forEach((data, i) => {
+        const pembahasan = kunciJawaban[data.index](data.koef);
+        hasilHTML += `<li>${bentukSoal[data.index](data.koef)}<br><div class="math-pembahasan">${pembahasan.replace(/\n/g, '<br>')}</div></li>`;
+      });
+
+      hasilHTML += "</ol>";
+      document.getElementById("hasil").innerHTML = hasilHTML;
+      if (window.MathJax) MathJax.typesetPromise();
+    }
+  </script>
+</body>
+</html>
