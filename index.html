@@ -1,8 +1,9 @@
+Bisakah pada kunci jawaban cara pengerjaan lebih detail jadi siswa mampu mengerti hanya dari pembahasannya
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lembar Kerja Limit \(x \to 0\)</title>
   <style>
     body {
@@ -10,9 +11,8 @@
       background-color: #fff8f0;
       color: #333;
       padding: 20px;
-      margin: 0;
+      text-align: left;
     }
-
     h1 {
       background-color: #ff9f43;
       color: white;
@@ -20,7 +20,6 @@
       border-radius: 15px;
       text-align: center;
     }
-
     button {
       background-color: #ffa726;
       color: white;
@@ -31,23 +30,19 @@
       cursor: pointer;
       margin-top: 10px;
       margin-right: 10px;
+      font-family: Verdana, sans-serif;
     }
-
-    label, input {
-      font-size: 16px;
-    }
-
     .soal {
       background-color: #ffe0b2;
       border-radius: 10px;
       padding: 15px;
       margin: 10px 0;
-      text-align: left;
       page-break-inside: avoid;
+      break-inside: avoid;
+      text-align: left;
     }
-
     textarea {
-      width: 100%;
+      width: 95%;
       min-height: 80px;
       border-radius: 8px;
       border: 1.5px solid #ffa726;
@@ -58,7 +53,6 @@
       margin-top: 5px;
       box-sizing: border-box;
     }
-
     #hasil {
       margin-top: 20px;
       padding: 20px;
@@ -67,76 +61,74 @@
       font-size: 16px;
       text-align: left;
     }
-
     #hasil h3 {
       color: #33691e;
+      font-family: Verdana, sans-serif;
     }
-
     #hasil li {
       margin-bottom: 15px;
       background: #f0f4c3;
       padding: 10px 15px;
       border-radius: 10px;
       line-height: 1.6;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      text-align: left;
+      font-family: Verdana, sans-serif;
     }
-
     #hasil strong {
       display: block;
       margin-top: 20px;
       font-size: 18px;
+      font-family: Verdana, sans-serif;
     }
-
     .math-pembahasan {
       background-color: #fffde7;
       padding: 10px;
       border-radius: 10px;
       font-family: Verdana, sans-serif;
+      text-align: left;
     }
-
     @media print {
+      body {
+        background-color: white !important;
+        color: black !important;
+        padding: 0;
+      }
       button, input {
         display: none;
+      }
+      .soal {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 20px;
       }
       #hasil {
         page-break-before: always;
       }
     }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      button {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
-    }
   </style>
-
-  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         processEscapes: true
       },
-      svg: {
-        fontCache: 'global',
-        scale: 1.4  // Memperbesar tampilan rumus matematika
-      }
+      svg: { fontCache: 'global' }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
 </head>
 <body>
   <h1>Lembar Kerja Limit \(x \to 0\)</h1>
 
-  <label>Jumlah Soal: <input type="number" id="jumlah" value="5" min="1" max="20" /></label>
-  <br>
+  <label>Jumlah Soal: <input type="number" id="jumlah" value="5" min="1" max="20"></label>
   <button onclick="generateSoal()">Buat Soal</button>
   <button onclick="window.print()">Cetak</button>
-  <button onclick="tampilkanJawaban()">Tampilkan Kunci Jawaban</button>
+  <button onclick="selesai()">Tampilkan Kunci Jawaban</button>
   <button onclick="location.reload()">Mulai Ulang</button>
 
   <div id="daftar-soal"></div>
@@ -144,69 +136,85 @@
 
   <script>
     const bentukSoal = [
-      k => `Hitung $\\lim_{x \\to 0} \\frac{\\sin(${k === 1 ? '' : k}x)}{x}$.`,
-      k => `Tentukan nilai $\\lim_{x \\to 0} \\frac{\\tan(${k === 1 ? '' : k}x)}{x}$.`,
-      k => `Hitung $\\lim_{x \\to 0} \\frac{1 - \\cos(${k === 1 ? '' : k}x)}{x^2}$.`,
-      k => `Hitung $\\lim_{x \\to 0} \\frac{e^{${k === 1 ? '' : k}x} - 1}{x}$.`,
-      k => `Tentukan nilai $\\lim_{x \\to 0} \\frac{\\ln(1 + ${k === 1 ? '' : k}x)}{x}$.`
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{\\sin(${k === 1 ? '' : k}x)}{x}$.`,
+      k => `Tentukan nilai  $\\lim_{x \\to 0} \\frac{\\tan(${k === 1 ? '' : k}x)}{x}$.`,
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{1 - \\cos(${k === 1 ? '' : k}x)}{x^2}$.`,
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{e^{${k === 1 ? '' : k}x} - 1}{x}$.`,
+      k => `Tentukan nilai  $\\lim_{x \\to 0} \\frac{\\ln(1 + ${k === 1 ? '' : k}x)}{x}$.`
     ];
 
-    const pembahasan = [
-      k => `Gunakan $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$. Maka, $\\frac{\\sin(${k}x)}{x} = ${k} \\cdot \\frac{\\sin(${k}x)}{${k}x} = ${k}$.`,
-      k => `Gunakan $\\lim_{x \\to 0} \\frac{\\tan x}{x} = 1$. Maka, $\\frac{\\tan(${k}x)}{x} = ${k} \\cdot \\frac{\\tan(${k}x)}{${k}x} = ${k}$.`,
-      k => `Gunakan $\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}$. Maka, $\\frac{1 - \\cos(${k}x)}{x^2} = ${k}^2 \\cdot \\frac{1 - \\cos(${k}x)}{(${k}x)^2} = ${(k*k)/2}$.`,
-      k => `Gunakan $\\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1$. Maka, $\\frac{e^{${k}x} - 1}{x} = ${k}$.`,
-      k => `Gunakan $\\lim_{x \\to 0} \\frac{\\ln(1+x)}{x} = 1$. Maka, $\\frac{\\ln(1 + ${k}x)}{x} = ${k}$.`
+    const kunciJawaban = [
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1$.
+2. Karena bentuk: $\\frac{\\sin(${k}x)}{x} = ${k} \\cdot \\frac{\\sin(${k}x)}{${k}x}$.
+3. Maka hasil: $= ${k}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{\\tan x}{x} = 1$.
+2. Karena bentuk: $\\frac{\\tan(${k}x)}{x} = ${k} \\cdot \\frac{\\tan(${k}x)}{${k}x}$.
+3. Maka hasil: $= ${k}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}$.
+2. Karena bentuk: $\\frac{1 - \\cos(${k}x)}{x^2} = ${k}^2 \\cdot \\frac{1 - \\cos(${k}x)}{(${k}x)^2}$.
+3. Maka hasil: $= ${(k * k) / 2}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1$.
+2. Bentuk: $\\frac{e^{${k}x} - 1}{x} = ${k} \\cdot \\frac{e^{${k}x} - 1}{${k}x}$.
+3. Maka hasil: $= ${k}$.`,
+      k => `Langkah-langkah:
+1. Gunakan identitas $\\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x} = 1$.
+2. Bentuk: $\\frac{\\ln(1 + ${k}x)}{x} = ${k} \\cdot \\frac{\\ln(1 + ${k}x)}{${k}x}$.
+3. Maka hasil: $= ${k}$.`
     ];
 
     let soalData = [];
 
-    function getRandomKoef() {
-      const koef = [1, 2, 3, 4, 5];
-      return koef[Math.floor(Math.random() * koef.length)];
+    function getRandomCoefficient() {
+      const angka = [1, 2, 3, 4, 5];
+      return angka[Math.floor(Math.random() * angka.length)];
     }
 
     function generateSoal() {
       const jumlah = parseInt(document.getElementById("jumlah").value);
-      const wadah = document.getElementById("daftar-soal");
-      wadah.innerHTML = "";
+      const soalContainer = document.getElementById("daftar-soal");
+      soalContainer.innerHTML = "";
       soalData = [];
-
-      const dipakai = new Set();
+      const usedSoal = new Set();
 
       for (let i = 0; i < jumlah; i++) {
-        let idx, k, kode, percobaan = 0;
+        let index, koef, kunci;
+        let attempt = 0;
         do {
-          idx = Math.floor(Math.random() * bentukSoal.length);
-          k = getRandomKoef();
-          kode = `${idx}-${k}`;
-          percobaan++;
-        } while (dipakai.has(kode) && percobaan < 20);
-        dipakai.add(kode);
+          index = Math.floor(Math.random() * bentukSoal.length);
+          koef = getRandomCoefficient();
+          kunci = `${index}-${koef}`;
+          attempt++;
+        } while (usedSoal.has(kunci) && attempt < 20);
+        usedSoal.add(kunci);
+        soalData.push({ index, koef });
 
-        soalData.push({ idx, k });
-        wadah.innerHTML += `
+        const soalHTML = `
           <div class="soal">
             <strong>Soal ${i + 1}:</strong><br>
-            ${bentukSoal[idx](k)}<br>
+            <span>${bentukSoal[index](koef)}</span>
             <textarea></textarea>
           </div>`;
+        soalContainer.innerHTML += soalHTML;
       }
 
-      MathJax.typesetPromise();
+      if (window.MathJax) MathJax.typesetPromise();
     }
 
-    function tampilkanJawaban() {
-      const hasil = document.getElementById("hasil");
-      let html = "<h3>Hasil dan Pembahasan:</h3><ol>";
+    function selesai() {
+      let hasilHTML = "<h3>Hasil dan Pembahasan:</h3><ol>";
 
-      soalData.forEach((s, i) => {
-        html += `<li>${bentukSoal[s.idx](s.k)}<div class="math-pembahasan">${pembahasan[s.idx](s.k)}</div></li>`;
+      soalData.forEach((data, i) => {
+        const pembahasan = kunciJawaban[data.index](data.koef);
+        hasilHTML += `<li>${bentukSoal[data.index](data.koef)}<br><div class="math-pembahasan">${pembahasan.replace(/\n/g, '<br>')}</div></li>`;
       });
 
-      html += "</ol>";
-      hasil.innerHTML = html;
-      MathJax.typesetPromise();
+      hasilHTML += "</ol>";
+      document.getElementById("hasil").innerHTML = hasilHTML;
+      if (window.MathJax) MathJax.typesetPromise();
     }
   </script>
 </body>
