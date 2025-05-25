@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lembar Kerja Limit \(x \to 0\)</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Verdana', cursive, sans-serif;
+      font-family: Verdana, sans-serif;
       background-color: #fff8f0;
       color: #333;
       padding: 20px;
       text-align: left;
+      margin: 0;
     }
     h1 {
       background-color: #ff9f43;
@@ -18,17 +22,25 @@
       padding: 15px;
       border-radius: 15px;
       text-align: center;
+      font-size: 1.5em;
     }
-    button {
+    button, input[type="number"] {
       background-color: #ffa726;
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 10px 15px;
+      font-size: 1em;
       border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
-      margin-right: 10px;
+      margin: 8px 4px 12px 0;
+      font-family: Verdana, sans-serif;
+    }
+    input[type="number"] {
+      width: 80px;
+      margin-left: 10px;
+      color: black;
+      background-color: white;
+      border: 1px solid #ffa726;
     }
     .soal {
       background-color: #ffe0b2;
@@ -40,12 +52,12 @@
       text-align: left;
     }
     textarea {
-      width: 95%;
+      width: 100%;
       min-height: 80px;
       border-radius: 8px;
       border: 1.5px solid #ffa726;
       padding: 10px;
-      font-family: 'Verdana', cursive, sans-serif;
+      font-family: Verdana, sans-serif;
       font-size: 14px;
       resize: vertical;
       margin-top: 5px;
@@ -81,19 +93,31 @@
       background-color: #fffde7;
       padding: 10px;
       border-radius: 10px;
-      font-family: 'Verdana', cursive, sans-serif;
+      font-family: Verdana, sans-serif;
       text-align: left;
     }
-    /* Perbesar penulisan matematika */
-    mjx-container[jax="CHTML"] {
+    .MJX-TEX {
       font-size: 150% !important;
     }
-    @media print {
+    @media (max-width: 768px) {
       body {
-        background-color: white !important;
-        color: black !important;
-        padding: 0;
+        padding: 10px;
+        font-size: 16px;
       }
+      h1 {
+        font-size: 1.3em;
+      }
+      button, input[type="number"] {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 1em;
+      }
+      .soal, #hasil {
+        padding: 10px;
+      }
+    }
+    @media print {
       button, input {
         display: none;
       }
@@ -135,10 +159,10 @@
 
   <script>
     const bentukSoal = [
-      k => `Hitung  $\\lim_{x \\to 0} \\frac{\\sin(${k === 1 ? '' : k}x)}{x}$.`,
-      k => `Tentukan nilai  $\\lim_{x \\to 0} \\frac{\\tan(${k === 1 ? '' : k}x)}{x}$.`,
-      k => `Hitung  $\\lim_{x \\to 0} \\frac{1 - \\cos(${k === 1 ? '' : k}x)}{x^2}$.`,
-      k => `Hitung  $\\lim_{x \\to 0} \\frac{e^{${k === 1 ? '' : k}x} - 1}{x}$.`,
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{\\sin(${k === 1 ? '' : k}x)}{x}$.\`,
+      k => `Tentukan nilai  $\\lim_{x \\to 0} \\frac{\\tan(${k === 1 ? '' : k}x)}{x}$.\`,
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{1 - \\cos(${k === 1 ? '' : k}x)}{x^2}$.\`,
+      k => `Hitung  $\\lim_{x \\to 0} \\frac{e^{${k === 1 ? '' : k}x} - 1}{x}$.\`,
       k => `Tentukan nilai  $\\lim_{x \\to 0} \\frac{\\ln(1 + ${k === 1 ? '' : k}x)}{x}$.`
     ];
 
